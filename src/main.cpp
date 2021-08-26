@@ -462,23 +462,29 @@ void loop()
     short bBtnC = M5.BtnC.wasPressed();
     M5.update();
 
+    // 再接続リクエスト
     if (bBtnC == 1)
     {
-      if (WiFi.status() != WL_CONNECTED)
+      // もし，WiFi切断中なら
+      if (WiFi.status() != WL_CONNECTED) 
       {
-        if (wifiMulti.run() == WL_CONNECTED)
-        {
-          // NTP接続設定初期化していない（起動してからはじめてのWiFi接続時）
-          if (bInitTime == false)
-          {
-            ambient.begin(channelId, writeKey, &client);
-            MDNS.begin("co2");
-            configTime(9 * 3600L, 0, "ntp.nict.jp", "time.google.com", "ntp.jst.mfeed.ad.jp"); //NTP
-            bInitTime = true;
-          }
-        }
+        // 接続
+        wifiMulti.run();
       }
     }
+
+    if (WiFi.status() == WL_CONNECTED)
+    {
+        // NTP接続設定初期化していない（起動してからはじめてのWiFi接続時）
+        if (bInitTime == false)
+        {
+          ambient.begin(channelId, writeKey, &client);
+          MDNS.begin("co2");
+          configTime(9 * 3600L, 0, "ntp.nict.jp", "time.google.com", "ntp.jst.mfeed.ad.jp"); //NTP
+          bInitTime = true;
+        }
+    }
+
 
     // 時計表示（NTP設定初期化されている時のみ）
     if (bInitTime)
