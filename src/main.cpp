@@ -240,23 +240,20 @@ void setup(void)
 
   for (int i = 0; i < 15 && (wifiMulti.run() != WL_CONNECTED); i++)
   {
-    delay(500);
+    for(int j = 0; j < 10; j++){
+      delay(50);
+      // ボタンを押すとWiFi接続キャンセル
+      if (M5.BtnA.isPressed() + M5.BtnB.isPressed() + M5.BtnC.isPressed() >= 1)
+      {
+        sxprintln("cancel.");
+        goto WiFiCancel;
+      }
+      M5.update();
+    }
     sxprint(".");
 
-    // ボタンを押すとWiFi接続キャンセル
-    if (M5.BtnA.wasPressed() == 1)
-    {
-      break;
-    }
-    if (M5.BtnB.wasPressed() == 1)
-    {
-      break;
-    }
-    if (M5.BtnC.wasPressed() == 1)
-    {
-      break;
-    }
   }
+
   M5.update();
 
   if (WiFi.status() == WL_CONNECTED)
@@ -280,6 +277,7 @@ void setup(void)
     sxprintln("Failed.");
   }
 
+WiFiCancel:
 
   delay(2000);
   M5.Lcd.clear(BLACK);
