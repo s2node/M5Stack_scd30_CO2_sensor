@@ -254,7 +254,6 @@ void setup(void)
 
   }
 
-  M5.update();
 
   if (WiFi.status() == WL_CONNECTED)
   {
@@ -278,6 +277,7 @@ void setup(void)
   }
 
 WiFiCancel:
+  M5.update();
 
   delay(2000);
   M5.Lcd.clear(BLACK);
