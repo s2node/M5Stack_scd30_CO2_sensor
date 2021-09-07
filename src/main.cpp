@@ -418,8 +418,10 @@ void loop()
       M5.Lcd.drawString(buf, 177, 157, GFXFF);
     }
 
-    if (WiFi.status() == WL_CONNECTED && scd30.CO2 != 0.0 && scd30.temperature != 0.0 && scd30.relative_humidity != 0.0)
+    // ambient
+    if (WiFi.status() == WL_CONNECTED && scd30.CO2 != 0.0)
     {
+      // 30秒に1回だけambientへ送信する
       ambient_send_span_counter++;
       if (ambient_send_span_counter >= AMBIENT_SEND_SPAN)
       {
