@@ -149,10 +149,10 @@ void setup(void)
   ***/
 
   /*** Adjust the rate at which measurements are taken, from 2-1800 seconds */
-  // if (!scd30.setMeasurementInterval(5)) {
-  //   Serial.println("Failed to set measurement interval");
-  //   while(1){ delay(10);}
-  // }
+   if (!scd30.setMeasurementInterval(PERIOD)) {
+     Serial.println("Failed to set measurement interval");
+     //while(1){ delay(10);}
+  }
   sxprint("Measurement interval: ");
   sxprint(scd30.getMeasurementInterval());
   sxprintln(" seconds");
