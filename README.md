@@ -36,3 +36,11 @@ void WiFiConeect(WiFiMulti& wifiMulti)
 unsigned int channelId = 0000; // AmbientのチャネルID
 const char* writeKey = "XXXXXX"; // ライトキー
 ```
+
+## Ambient側のチャンネル設定のグラフ項目の値と単位
+- データー1
+  - CO2(ppm)
+- データー2
+  - 温度(℃)
+- データー3
+  - 湿度(%)
